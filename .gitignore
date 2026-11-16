@@ -1,0 +1,65 @@
+# =========================================================================
+# Cognevance Technologies LMS - Git Ignore Rules
+# =========================================================================
+
+# Dependencies
+node_modules/
+*/node_modules/
+**/node_modules/
+
+# Environment Variables & Secrets (CRITICAL: Never commit to GitHub)
+.env
+.env.*
+*.env
+**/.env
+**/.env.*
+backend/.env
+backend/.env.*
+frontend/.env
+frontend/.env.*
+
+# Allow safe example templates to be committed
+!.env.example
+!backend/.env.example
+!frontend/.env.example
+
+# Build Outputs & Bundles
+dist/
+dist-ssr/
+build/
+out/
+**/dist/
+**/build/
+.vite/
+**/.vite/
+
+# Runtime Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Local test & coverage outputs
+coverage/
+.nyc_output/
+*.local
+
+# IDE & Editor configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+
+# Operating System temporary files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
