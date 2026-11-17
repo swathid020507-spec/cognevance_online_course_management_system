@@ -1,9 +1,44 @@
+/**
+ * Cognevance Technologies - Centralized API Service
+ * 
+ * Handles all HTTP communication with the backend:
+ * - Automatically resolves the API Base URL from import.meta.env.VITE_API_BASE_URL
+ * - Automatically normalizes trailing slashes and the '/api' prefix
+ * - Injects JWT Bearer authentication token from localStorage
+ * - Provides graceful fallback handling
+ * - Centralizes REST methods (GET, POST, PUT, DELETE)
+ */
+
+/**
+ * Normalizes the configured base URL to ensure clean endpoint resolution.
+ * Supports values such as:
+ *   "https://cognevance-lms-backend.onrender.com"
+ *   "https://cognevance-lms-backend.onrender.com/"
+ *   "https://cognevance-lms-backend.onrender.com/api"
+ *   "https://cognevance-lms-backend.onrender.com/api/"
+ */
+const normalizeBaseUrl = (rawUrl) => {
+  if (!rawUrl || typeof rawUrl !== 'string') return '';
+  let clean = rawUrl.trim().replace(/\/+$/, '');
+  if (!clean.endsWith('/api')) {
+    clean = `${clean}/api`;
+  }
+  return clean;
+};
+
 // Determine primary and fallback API URLs
 const getBaseUrls = () => {
-  if (import.meta.env.VITE_API_BASE_URL) {
-    return [import.meta.env.VITE_API_BASE_URL];
+  const envUrl = import.meta.env.VITE_API_BASE_URL;
+  if (envUrl && typeof envUrl === 'string' && envUrl.trim()) {
+    const primary = normalizeBaseUrl(envUrl);
+    // In local development, allow fallback to localhost:5000 if cloud backend is unreachable
+    if (import.meta.env.DEV) {
+      return [primary, 'http://localhost:5000/api', '/api'];
+    }
+    return [primary];
   }
-  // Try direct backend port 5000 first (backed by CORS), then Vite proxy /api
+
+  // Default development fallback: direct port 5000, then Vite dev proxy
   return ['http://localhost:5000/api', '/api'];
 };
 
@@ -33,7 +68,14 @@ const request = async (endpoint, options = {}) => {
   let lastError = null;
 
   for (const baseUrl of baseUrls) {
-    const url = `${baseUrl}${cleanEndpoint}`;
+    // If baseUrl ends with /api and endpoint begins with /api/, avoid duplicate /api/api
+    const resolvedEndpoint =
+      baseUrl.endsWith('/api') && cleanEndpoint.startsWith('/api/')
+        ? cleanEndpoint.substring(4)
+        : cleanEndpoint;
+
+    const url = `${baseUrl}${resolvedEndpoint}`;
+
     try {
       const response = await fetch(url, config);
       const data = await response.json().catch(() => ({}));
@@ -48,11 +90,11 @@ const request = async (endpoint, options = {}) => {
       return data;
     } catch (error) {
       lastError = error;
-      // If error was a network error (e.g. port 5000 not reachable), try next baseUrl
+      // If error was a network error (e.g. host unreachable), try next fallback baseUrl if available
       if (error instanceof TypeError && error.message.includes('fetch')) {
         continue;
       }
-      // If it was an HTTP error (4xx/5xx returned by server), throw it directly
+      // If it was an HTTP response error (4xx/5xx returned by server), throw it directly
       throw error;
     }
   }

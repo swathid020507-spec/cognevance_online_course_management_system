@@ -29,18 +29,42 @@ const isMongoConnected = () => {
   return mongoose.connection && mongoose.connection.readyState === 1;
 };
 
-// Auto-seed MongoDB if empty upon connection
+// Auto-seed MongoDB safely if courses are missing without overwriting users or enrollments
 const autoSeedMongoIfEmpty = async () => {
   try {
     if (!isMongoConnected()) return;
     const courseCount = await Course.countDocuments();
     if (courseCount === 0) {
-      console.log('[DataService] MongoDB is empty. Auto-seeding initial 9 realistic courses and accounts...');
+      console.log('[DataService] No courses found in MongoDB. Safely seeding initial 9 courses...');
       const { users, courses, enrollments } = await getSampleData();
-      await User.insertMany(users);
-      await Course.insertMany(courses);
-      await Enrollment.insertMany(enrollments);
-      console.log('[DataService] Auto-seed to MongoDB completed successfully!');
+
+      // 1. Safely insert users only if they don't already exist (avoid duplicate key collisions)
+      for (const u of users) {
+        const existing = await User.findOne({ email: u.email });
+        if (!existing) {
+          await User.create(u);
+        }
+      }
+
+      // 2. Safely insert courses (only if not already existing by title)
+      for (const c of courses) {
+        const existingCourse = await Course.findOne({ title: c.title });
+        if (!existingCourse) {
+          await Course.create(c);
+        }
+      }
+
+      // 3. Safely insert enrollments if none exist
+      const enrollmentCount = await Enrollment.countDocuments();
+      if (enrollmentCount === 0 && enrollments && enrollments.length > 0) {
+        try {
+          await Enrollment.insertMany(enrollments);
+        } catch (e) {
+          console.warn('[DataService] Initial enrollments skipped or partial:', e.message);
+        }
+      }
+
+      console.log('[DataService] Safe course seed to MongoDB completed successfully!');
     } else {
       console.log(`[DataService] MongoDB active with ${courseCount} existing courses.`);
     }

@@ -86,8 +86,50 @@ const destroyData = async () => {
   }
 };
 
+const safeSeedData = async () => {
+  try {
+    await connectDB();
+    const { users, courses, enrollments } = await getSampleData();
+    let usersAdded = 0;
+    let coursesAdded = 0;
+    let enrollmentsAdded = 0;
+
+    for (const u of users) {
+      const exists = await User.findOne({ email: u.email });
+      if (!exists) {
+        await User.create(u);
+        usersAdded++;
+      }
+    }
+
+    for (const c of courses) {
+      const exists = await Course.findOne({ title: c.title });
+      if (!exists) {
+        await Course.create(c);
+        coursesAdded++;
+      }
+    }
+
+    for (const e of enrollments) {
+      const exists = await Enrollment.findOne({ user: e.user, course: e.course });
+      if (!exists) {
+        await Enrollment.create(e);
+        enrollmentsAdded++;
+      }
+    }
+
+    console.log(`[Safe Seeder] Preserved existing data. Added ${coursesAdded} missing courses, ${usersAdded} missing users, ${enrollmentsAdded} missing enrollments.`);
+    process.exit(0);
+  } catch (error) {
+    console.error(`[Safe Seeder Error]: ${error.message}`);
+    process.exit(1);
+  }
+};
+
 if (process.argv[2] === '-d') {
   destroyData();
-} else {
+} else if (process.argv[2] === '-f' || process.argv[2] === '--force') {
   seedData();
+} else {
+  safeSeedData();
 }
