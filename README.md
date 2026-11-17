@@ -5,6 +5,17 @@
 
 ---
 
+## 🌐 Live Deployment
+
+The Online Course Management System is deployed and accessible online:
+
+- **Live Application:** [https://cognevance-lms-frontend.onrender.com](https://cognevance-lms-frontend.onrender.com) (Deployed on **Render Static Site**)
+- **Backend API:** [https://cognevance-lms-backend.onrender.com](https://cognevance-lms-backend.onrender.com) (Deployed on **Render Web Service**)
+- **Database:** **MongoDB Atlas** (Managed Cloud Database)
+- **GitHub Repository:** [https://github.com/swathid020507-spec/cognevance_online_course_management_system.git](https://github.com/swathid020507-spec/cognevance_online_course_management_system.git)
+
+---
+
 ## 🌟 Executive Summary
 
 The **Cognevance Technologies Online Course Management System** is a full-stack educational web application developed for the **Cognevance Technologies Level 2 Full Stack Web Developer Internship Evaluation**.
