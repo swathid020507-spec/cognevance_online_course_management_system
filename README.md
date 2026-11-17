@@ -7,9 +7,9 @@
 
 ## 🌟 Executive Summary
 
-The **Cognevance Technologies Online Course Management System** is an enterprise-grade, full-stack educational platform built specifically for the **Cognevance Technologies Level 2 Full Stack Web Developer Internship Evaluation**. 
+The **Cognevance Technologies Online Course Management System** is a full-stack educational web application developed for the **Cognevance Technologies Level 2 Full Stack Web Developer Internship Evaluation**.
 
-It empowers **Students** to discover cutting-edge technical curricula, enroll in industry tracks, and interactively track their progress across lessons and modules. Simultaneously, it provides **Administrators** with a high-level analytics control center to author and manage courses, review real-time platform statistics, and oversee user access.
+The platform allows **Students** to explore technical curricula, enroll in courses, and interactively track their progress across individual lessons and modules. Simultaneously, it equips **Administrators** with an analytics dashboard to create and manage courses, view platform metrics, and oversee user access.
 
 ---
 
@@ -20,55 +20,53 @@ It empowers **Students** to discover cutting-edge technical curricula, enroll in
 | **Frontend** | React 19, Vite, React Router DOM, Lucide Icons | Responsive SPA, Component-driven architecture, Navy/White Theme |
 | **Backend** | Node.js, Express.js 5 | RESTful API, Middleware architecture, Modular routes & controllers |
 | **Database** | MongoDB, Mongoose 9 | Normalized schemas, Compound unique indexes, Population references |
-| **Security & Auth** | JSON Web Tokens (JWT), BCryptJS, CORS | Stateless auth, Salted password hashing, Role-Based Access Control (RBAC) |
-| **Styling** | Modern Vanilla CSS & Design Tokens | Crisp Navy Blue & White palette, responsive flexbox/grid, accessible UI |
+| **Security & Auth** | JSON Web Tokens (JWT), BCryptJS, CORS | Stateless authentication, Salted password hashing, Role-Based Access Control (RBAC) |
+| **Styling** | Modern CSS & Design Tokens | Crisp Navy Blue & White palette, responsive flexbox/grid layout |
 
 ---
 
 ## 🚀 Key Features
 
 ### 1. 🔐 Authentication & Authorization (RBAC)
-- **Role-Based Access Control**: Separate workflows and permissions for **Students** and **Administrators**.
-- **Secure Password Salting**: Passwords hashed with 10 salt rounds via `bcryptjs`.
-- **JWT Stateless Authentication**: Secure authorization headers (`Bearer <token>`) with 30-day token expiration.
-- **Route Guards**: `ProtectedRoute` component ensuring unauthenticated users cannot access student or admin panels.
-- **Quick Evaluation Autofill**: One-click demo credentials filling on the Login page for swift internship evaluation.
+- **Role-Based Access Control**: Differentiated capabilities and dashboards for **Students** and **Administrators**.
+- **Secure Password Hashing**: Passwords salted and hashed with 10 rounds using `bcryptjs`.
+- **JWT Stateless Authentication**: Secure authorization headers (`Bearer <token>`) with 30-day token lifetime.
+- **Route Protection**: `ProtectedRoute` component guarding student dashboard, interactive classroom, and admin panels.
+- **Demo Autofill**: Quick-fill buttons on the login page for evaluator demonstration.
 
 ### 2. 📚 Course Catalog & Management
-- **Course Authoring**: Admins can Create, Read, Update, and Delete (CRUD) courses with full validation.
-- **Rich Course Attributes**: Title, description, instructor name, category, duration, difficulty level, rating, thumbnail, and structured syllabus lessons.
-- **Interactive Syllabus Viewer**: Lessons breakdown with duration tags and overview content.
+- **Course Authoring**: Admin capabilities to Create, Read, Update, and Delete (CRUD) courses with field validation.
+- **Course Attributes**: Title, description, instructor, category, duration, difficulty level, rating, thumbnail, and structured syllabus lessons.
+- **Interactive Syllabus Viewer**: Lesson breakdown with estimated durations and curriculum overview.
 
-### 3. 📝 Student Enrollment & Granular Progress Tracking
-- **One-Click Enrollment**: Students can enroll in any published course instantly.
-- **Duplicate Prevention**: Compound MongoDB unique index `{ student: 1, course: 1 }` prevents double enrollments at both the DB and application level.
-- **Interactive Classroom**: Dedicated `/learn/:id` classroom view with embedded lecture player, lesson checklist, and completion toggle.
-- **Live Progress Calculation**: Real-time progress percentage bar updated automatically as lessons are checked off.
-- **Automatic Status Transition**: Automatically transitions enrollment status from `ongoing` to `completed` upon reaching 100%.
+### 3. 📝 Student Enrollment & Progress Tracking
+- **Course Enrollment**: Students can enroll in available courses with a single action.
+- **Duplicate Prevention**: Compound MongoDB unique index `{ student: 1, course: 1 }` prevents duplicate enrollments at both database and application levels.
+- **Interactive Classroom**: Dedicated `/learn/:id` classroom view with embedded lecture preview, lesson checklist, and completion toggle.
+- **Dynamic Progress Calculation**: Real-time progress bar recalculates automatically as lessons are marked complete.
+- **Status Transition**: Automatically transitions enrollment status from `ongoing` to `completed` upon reaching 100% progress.
 
 ### 4. 📊 Student Dashboard
-- **Personalized Learning Hub**: Displays personalized welcome banner with the student's name.
-- **Dynamic KPI Metrics**: Real-time count of Total Enrolled Courses, In-Progress, Completed, and Average Progress %.
+- **Personalized Hub**: Displays student greeting, enrolled tracks, and resume learning shortcuts.
+- **Dynamic KPI Metrics**: Tracks Total Enrolled Courses, In-Progress count, Completed count, and Average Progress %.
 - **Filter Tabs**: Filter between All, Ongoing, and Completed courses.
-- **Quick Resume**: Direct links from each course card to resume learning right where the student left off.
 
 ### 5. 🛡️ Administrator Command Center
-- **Live Platform Metrics**: Real-time counts of Total Active Students, Total Courses, Total Enrollments, and Completion Rate %.
-- **Curriculum Distribution**: Automatic aggregation of courses categorized by track.
-- **Recent Activity Feed**: Real-time feed of recent student enrollments with student name, email, course title, and status.
-- **User Management**: List all registered accounts, switch user roles between `student` and `admin`, or delete users.
-- **Course Management Table**: Searchable table with quick actions to Edit details or Delete courses with safe confirmation modals.
+- **Platform Analytics**: Dynamic counts of Total Students, Total Courses, Total Enrollments, and Completion Rate %.
+- **Curriculum Distribution**: Aggregates courses categorized by technical track.
+- **Recent Activity Feed**: Real-time log of recent student enrollments with student name, email, course title, and status.
+- **User Management**: Inspect registered accounts, switch user roles between `student` and `admin`, or remove accounts.
+- **Course Management Table**: Searchable table with quick actions to Edit details or Delete courses with confirmation modals.
 
 ### 6. 🔍 Search, Filtering & Sorting
-- **Real-Time Search**: Search courses by title, keywords, topic, or instructor name.
+- **Real-Time Search**: Search courses by title, keywords, or instructor name.
 - **Category Filter Chips**: Fast filtering by *Web Development*, *Data Science*, *Cloud & DevOps*, *Artificial Intelligence*, *Mobile Development*, *Cybersecurity*, and *UI/UX Design*.
 - **Skill Level Selector**: Filter by *Beginner*, *Intermediate*, or *Advanced*.
 - **Sorting Options**: Sort by *Newest First*, *Highest Rated*, *Title (A-Z)*, and *Title (Z-A)*.
 
-### 7. 🎨 Responsive, Professional Frontend Design
-- **Theme**: Designed in strict adherence with Cognevance branding — crisp Navy Blue (`#0f172a`, `#1e293b`), Primary Blue (`#2563eb`), Clean White (`#ffffff`), and functional accents (Emerald Green for success, Amber for ratings).
-- **Responsiveness**: Fully fluid across mobile phones, tablets, laptops, and desktop screens.
-- **Visual Polish**: Polished cards, elevation shadows, badge pills, loading spinners, and dismissible alerts.
+### 7. 🎨 Responsive Frontend Design
+- **Theme**: Clean Navy Blue (`#0f172a`, `#1e293b`), Primary Blue (`#2563eb`), Clean White (`#ffffff`), and functional status accents.
+- **Responsiveness**: Fluid layout across mobile phones, tablets, laptops, and desktop screens with an accessible navigation drawer.
 
 ---
 
@@ -85,6 +83,8 @@ Cognevance_Online_Course_Management_System/
 │   │   ├── courseController.js   # Course CRUD, filtering, search
 │   │   ├── enrollmentController.js# Enrollment, progress tracking
 │   │   └── adminController.js    # Admin stats, user management
+│   ├── data/
+│   │   └── seedData.js           # 9 realistic technical courses and demo data
 │   ├── middleware/
 │   │   ├── auth.js               # JWT verification & role authorization
 │   │   └── errorMiddleware.js    # Centralized error & 404 handler
@@ -97,11 +97,15 @@ Cognevance_Online_Course_Management_System/
 │   │   ├── courseRoutes.js       # /api/courses endpoints
 │   │   ├── enrollmentRoutes.js   # /api/enrollments endpoints
 │   │   └── adminRoutes.js        # /api/admin endpoints
-│   ├── .env                      # Environment variables
-│   ├── .env.example              # Sample environment template
-│   ├── seeder.js                 # Database seeder with realistic test data
+│   ├── services/
+│   │   └── dataService.js        # Unified data service with fallback support
+│   ├── .env.example              # Safe environment variable template
+│   ├── diagnose.js               # Atlas connection diagnostic tool
+│   ├── package.json              # Backend scripts & dependencies
+│   ├── seeder.js                 # Database seeder script
 │   ├── server.js                 # Express server entrypoint
-│   └── package.json
+│   ├── set-env.js                # Helper script to set MONGODB_URI safely
+│   └── test-db.js                # Database connection verification script
 │
 ├── frontend/
 │   ├── public/
@@ -109,24 +113,24 @@ Cognevance_Online_Course_Management_System/
 │   │   ├── assets/
 │   │   ├── components/
 │   │   │   └── common/
-│   │   │       ├── Navbar.jsx        # Responsive navigation with role badge
-│   │   │       ├── Footer.jsx        # Internship footer with curriculum links
-│   │   │       ├── CourseCard.jsx    # Reusable course & progress card
-│   │   │       ├── LoadingSpinner.jsx# Polished animated loading state
 │   │   │       ├── AlertMessage.jsx  # Notification & error alerts
+│   │   │       ├── CourseCard.jsx    # Reusable course & progress card
+│   │   │       ├── Footer.jsx        # Internship footer with curriculum links
+│   │   │       ├── LoadingSpinner.jsx# Animated loading indicator
+│   │   │       ├── Navbar.jsx        # Responsive navigation with role badge
 │   │   │       └── ProtectedRoute.jsx# Auth and Admin route guards
 │   │   ├── context/
 │   │   │   └── AuthContext.jsx   # Global React authentication provider
 │   │   ├── pages/
-│   │   │   ├── HomePage.jsx          # Hero, highlights, featured courses
-│   │   │   ├── CoursesPage.jsx       # Course catalog with search & filters
+│   │   │   ├── AdminDashboard.jsx    # Analytics, course CRUD, user management
 │   │   │   ├── CourseDetailsPage.jsx # Course syllabus & enrollment card
 │   │   │   ├── CourseLearnPage.jsx   # Interactive classroom & lesson tracking
+│   │   │   ├── CoursesPage.jsx       # Course catalog with search & filters
+│   │   │   ├── HomePage.jsx          # Hero, highlights, featured courses
 │   │   │   ├── LoginPage.jsx         # Sign in with evaluation quick-fill
+│   │   │   ├── NotFoundPage.jsx      # 404 page
 │   │   │   ├── RegisterPage.jsx      # Student / Admin registration
-│   │   │   ├── StudentDashboard.jsx  # Student progress & enrolled tracks
-│   │   │   ├── AdminDashboard.jsx    # Analytics, course CRUD, user management
-│   │   │   └── NotFoundPage.jsx      # 404 page
+│   │   │   └── StudentDashboard.jsx  # Student progress & enrolled tracks
 │   │   ├── services/
 │   │   │   └── api.js                # Centralized API fetch wrapper with JWT
 │   │   ├── App.jsx                   # React Router layout
@@ -136,7 +140,8 @@ Cognevance_Online_Course_Management_System/
 │   ├── vite.config.js                # Vite config with backend API proxy
 │   └── package.json
 │
-└── README.md                         # Documentation
+├── .gitignore                        # Root Git ignore rules (protects all .env files)
+└── README.md                         # Complete documentation
 ```
 
 ---
@@ -156,35 +161,35 @@ cd Cognevance_Online_Course_Management_System
    ```bash
    cd backend
    ```
-2. Check your `.env` file (pre-configured with development defaults):
+2. Create your local `backend/.env` file from the provided example template:
+   ```bash
+   cp .env.example .env
+   ```
+3. Configure the environment variables in `backend/.env`:
    ```env
    PORT=5000
    NODE_ENV=development
-   MONGO_URI=mongodb://127.0.0.1:27017/cognevance_lms
-   JWT_SECRET=cognevance_fullstack_internship_jwt_secret_key_2026
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster-name>.mongodb.net/cognevance_lms?retryWrites=true&w=majority
+   JWT_SECRET=your_jwt_secret_key_change_in_production
    JWT_EXPIRE=30d
-   ADMIN_SECRET=ADMIN2026
+   ADMIN_SECRET=your_admin_secret_key_here
    ```
+   > **Note on Database Connection**:
+   > - The backend uses `MONGODB_URI` as its primary connection string variable (with `MONGO_URI` supported as fallback).
+   > - **MongoDB Atlas (Cloud)**: Set `MONGODB_URI` to your Atlas connection string targeting the `cognevance_lms` database.
+   > - **Local MongoDB**: Use `MONGODB_URI=mongodb://127.0.0.1:27017/cognevance_lms`.
+   > - **Test Connection**: Run `npm run test:db` at any time to verify your database connection.
 
-   > **MongoDB Options**:
-   > - **Option A (MongoDB Atlas - Cloud)**: Create a free cluster on [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) (takes 2 minutes) and set `MONGO_URI`:
-   >   ```env
-   >   MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/cognevance_lms?retryWrites=true&w=majority
-   >   ```
-   > - **Option B (Local MongoDB)**: Install and start the free [MongoDB Community Server](https://www.mongodb.com/try/download/community) on your machine.
-   > - **Option C (Immediate Evaluation Mode)**: If MongoDB is offline, the backend automatically initializes an in-memory fallback store with all 9 realistic courses, admin, and student accounts so every API endpoint remains 100% functional for evaluation!
-
-3. Populate MongoDB with the 9 technical courses and pre-configured accounts:
+4. Seed the database with the initial 9 technical courses and evaluation accounts:
    ```bash
    npm run seed
    ```
-   *(Note: Whenever a new MongoDB connection is detected, the backend will also auto-seed if the database is empty).*
 
-4. Start the backend development server:
+5. Start the backend development server:
    ```bash
    npm run dev
    ```
-   *The backend will run on `http://localhost:5000` with API routes mounted at `http://localhost:5000/api`.*
+   *The backend will start on `http://localhost:5000` with API routes mounted at `http://localhost:5000/api`.*
 
 ---
 
@@ -203,16 +208,16 @@ cd Cognevance_Online_Course_Management_System
 
 ---
 
-## 🔑 Pre-Configured Test Accounts (Evaluation Ready)
+## 🔑 Demo Accounts (Configured for Evaluation Testing)
 
-For immediate evaluation, the database seeder sets up two ready-to-use accounts with realistic data:
+When running `npm run seed`, the database is populated with sample accounts for demonstration:
 
-| Role | Email | Password | Pre-loaded Data |
+| Role | Email | Password | Pre-loaded Evaluation Data |
 | :--- | :--- | :--- | :--- |
 | **Lead Administrator** | `admin@cognevance.com` | `Admin@123` | Full access to Admin Console, Course CRUD, User Role Switcher, and Platform KPIs |
 | **Student (Alex Morgan)** | `student@cognevance.com` | `Student@123` | Pre-enrolled in 3 courses with 60% progress, 100% completed, and 33% ongoing |
 
-> 💡 **Tip for Evaluators**: On the **Sign In** page, click the **"Fill Student"** or **"Fill Admin"** quick buttons to test without typing credentials!
+> 💡 **Demo Shortcut**: On the **Sign In** page, click the **"Fill Student"** or **"Fill Admin"** buttons to test without typing credentials. Real user accounts can also be created via the Register page.
 
 ---
 
@@ -231,9 +236,9 @@ All responses return standard JSON structures with `{ success: true, ... }` or `
 ### 2. Course Endpoints (`/api/courses`)
 | Method | Endpoint | Access | Description |
 | :--- | :--- | :--- | :--- |
-| `GET` | `/api/courses` | Public | Get all courses (supports `?search=`, `?category=`, `?level=`, `?sort=`) |
+| `GET` | `/api/courses` | Public | Get all courses (supports `?search=`, `?category=`, `?level=`, `?sort=`, `?page=`, `?limit=`) |
 | `GET` | `/api/courses/categories` | Public | Retrieve list of distinct course categories |
-| `GET` | `/api/courses/:id` | Public | Retrieve full course details, lessons, and enrollment count |
+| `GET` | `/api/courses/:id` | Public | Retrieve course details, lessons, and enrollment count |
 | `POST` | `/api/courses` | Admin | Create a new technical course |
 | `PUT` | `/api/courses/:id` | Admin | Update an existing course |
 | `DELETE` | `/api/courses/:id` | Admin | Delete course and its associated enrollments |
@@ -342,4 +347,4 @@ To demonstrate the application during the internship assessment:
 ## 👨‍💻 Developer & Internship Information
 - **Candidate Project**: Level 2 Full Stack Web Developer Internship
 - **Organization**: Cognevance Technologies
-- **Status**: Complete, Verified, and Production-Ready
+- **Project Status**: Completed & Verified for Internship Evaluation
